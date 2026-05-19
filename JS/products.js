@@ -1,30 +1,59 @@
 // Fetch products from API //
 const productsContainer = document.getElementById("products-container");
+const searchInput = document.getElementById("search-input");
+const categoryFilter = document.getElementById("category-filter");
+const nextBtn = document.getElementById("next-btn");
+const prevBtn = document.getElementById("prev-btn");
+const pageNumber = document.getElementById("page-number");
 
 let allProducts = [];
+let visibleProducts = [];
 let currentPage = 1;
 const productsPerPage = 8;
 
 async function fetchProducts() {
   try {
+    productsContainer.innerHTML = `<p class="status-message">Loading products...</p>`;
     const response = await fetch("https://fakestoreapi.com/products");
+
+    if(!response.ok){
+      throw new Error("Unable to fetch products");
+    }
+
     const products = await response.json();
     allProducts = products;
-    displayProducts(products);
+    visibleProducts = products;
+    displayProducts();
   } catch(error) {
     console.log("Error fetching products:", error);
+    productsContainer.innerHTML = `<p class="status-message">Products could not be loaded. Please try again later.</p>`;
   }
 }
 fetchProducts();
 
 // Show products on screen //
-function displayProducts(products) {
+function displayProducts() {
   productsContainer.innerHTML = "";
+  const totalPages = Math.max(1, Math.ceil(visibleProducts.length / productsPerPage));
+
+  if(currentPage > totalPages){
+    currentPage = totalPages;
+  }
+
   const start = (currentPage - 1) * productsPerPage;
   const end = start + productsPerPage;
-  const paginatedProducts = products.slice(start, end);
+  const paginatedProducts = visibleProducts.slice(start, end);
 
-  paginatedProducts.map((product) => {
+  pageNumber.textContent = currentPage;
+  prevBtn.disabled = currentPage === 1;
+  nextBtn.disabled = currentPage === totalPages;
+
+  if(visibleProducts.length === 0){
+    productsContainer.innerHTML = `<p class="status-message">No matching products found.</p>`;
+    return;
+  }
+
+  paginatedProducts.forEach((product) => {
     const card = document.createElement("div");
     card.classList.add("product-card");
     card.innerHTML = `
@@ -59,35 +88,39 @@ function addToInventory(product){
 }
 
 // Search products //
-const searchInput = document.getElementById("search-input");
 let timer;
 
-searchInput.addEventListener("input", (e) => {
+function applyProductFilters(){
+  const searchValue = searchInput.value.trim().toLowerCase();
+  const categoryValue = categoryFilter.value;
+
+  visibleProducts = allProducts.filter((product) => {
+    const matchesSearch = product.title.toLowerCase().includes(searchValue);
+    const matchesCategory = categoryValue === "all" || product.category === categoryValue;
+
+    return matchesSearch && matchesCategory;
+  });
+
+  currentPage = 1;
+  displayProducts();
+}
+
+searchInput.addEventListener("input", () => {
 
   clearTimeout(timer);
   timer = setTimeout(() => {
-    const value = e.target.value.toLowerCase();
-    const filteredProducts = allProducts.filter((product) => {
-      return product.title.toLowerCase().includes(value);
-    });
-
-    displayProducts(filteredProducts);
+    applyProductFilters();
 
   }, 500);
 });
 
 // Pagination + category filter //
-const nextBtn = document.getElementById("next-btn");
-const prevBtn = document.getElementById("prev-btn");
-const pageNumber = document.getElementById("page-number");
-
 nextBtn.addEventListener("click", () => {
-  const totalPages = Math.ceil(allProducts.length / productsPerPage);
+  const totalPages = Math.ceil(visibleProducts.length / productsPerPage);
 
   if(currentPage < totalPages){
     currentPage++;
-    pageNumber.textContent = currentPage;
-    displayProducts(allProducts);
+    displayProducts();
   }
 
 });
@@ -95,24 +128,9 @@ nextBtn.addEventListener("click", () => {
 prevBtn.addEventListener("click", () => {
   if(currentPage > 1){
     currentPage--;
-    pageNumber.textContent = currentPage;
-    displayProducts(allProducts);
+    displayProducts();
   }
 });
 
-const categoryFilter = document.getElementById("category-filter");
-categoryFilter.addEventListener("change", (e) => {
-  const value = e.target.value;
-  if(value === "all"){
-    displayProducts(allProducts);
-    return;
-  }
-
-  const filteredProducts =
-    allProducts.filter((product) => {
-      return product.category === value;
-    });
-  displayProducts(filteredProducts);
-});
-
+categoryFilter.addEventListener("change", applyProductFilters);
 

@@ -12,8 +12,51 @@ body {
   min-height: 100vh;
 }
 
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.bg-orb {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 999px;
+  background: rgba(45, 212, 191, 0.12);
+  filter: blur(8px);
+  animation: float 8s ease-in-out infinite;
+}
+
+.bg-orb:nth-child(1) {
+  left: 8%;
+  top: 12%;
+}
+
+.bg-orb:nth-child(2) {
+  right: 12%;
+  top: 18%;
+  background: rgba(59, 130, 246, 0.13);
+  animation-delay: 1s;
+}
+
+.bg-orb:nth-child(3) {
+  left: 18%;
+  bottom: 10%;
+  background: rgba(16, 185, 129, 0.12);
+  animation-delay: 2s;
+}
+
+.bg-orb:nth-child(4),
+.bg-orb:nth-child(5),
+.bg-orb:nth-child(6) {
+  display: none;
+}
+
 nav {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(22px);
   padding: 20px 50px;
   display: flex;
@@ -26,15 +69,19 @@ nav {
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 }
 
+.nav-logo,
 nav h1 {
   font-size: 32px;
   font-weight: 800;
+  color: #0f172a;
+  text-decoration: none;
 }
 
 nav ul {
   display: flex;
   list-style: none;
   gap: 35px;
+  align-items: center;
 }
 
 nav a {
@@ -61,8 +108,52 @@ nav a:hover {
   color: #4f46e5;
 }
 
-nav a:hover::after {
+nav a:hover::after,
+nav a.active::after {
   width: 100%;
+}
+
+nav a.active {
+  color: #4f46e5;
+}
+
+.nav-logo::after {
+  display: none;
+}
+
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-toggle span {
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background: #0f172a;
+  transition: 0.25s;
+}
+
+.nav-toggle.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .container {
@@ -105,7 +196,8 @@ nav a:hover::after {
   color: #64748b;
 }
 
-.hero button {
+.hero button,
+.button-link {
   padding: 18px 45px;
   border: none;
   background: linear-gradient(135deg, #4f46e5, #ec4899);
@@ -116,9 +208,14 @@ nav a:hover::after {
   font-weight: bold;
   transition: 0.4s;
   box-shadow: 0 15px 30px rgba(236, 72, 153, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
-.hero button:hover {
+.hero button:hover,
+.button-link:hover {
   transform: translateY(-6px);
   box-shadow: 0 25px 40px rgba(79, 70, 229, 0.4);
 }
@@ -177,6 +274,7 @@ nav a:hover::after {
   flex-direction: column;
   justify-content: space-between;
   transition: 0.4s;
+  min-height: 375px;
 }
 
 .product-card:hover {
@@ -231,12 +329,14 @@ nav a:hover::after {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .inventory-buttons button {
   width: auto;
+  min-width: 48px;
   padding: 12px 20px;
   margin-top: 0;
 }
@@ -326,7 +426,8 @@ nav a:hover::after {
   margin-bottom: 40px;
 }
 
-.join-left button {
+.join-left button,
+.join-left .button-link {
   padding: 18px 40px;
   border: none;
   border-radius: 50px;
@@ -339,7 +440,8 @@ nav a:hover::after {
   box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3);
 }
 
-.join-left button:hover {
+.join-left button:hover,
+.join-left .button-link:hover {
   transform: translateY(-5px);
   box-shadow: 0 25px 40px rgba(16, 185, 129, 0.4);
 }
@@ -374,12 +476,44 @@ nav a:hover::after {
 
 .empty-state {
   background: white;
-  width: 500px;
+  width: min(500px, 100%);
   padding: 70px;
   border-radius: 32px;
   text-align: center;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
-  margin: 120px auto 0;
+  margin: 80px auto 0;
+  grid-column: 1 / -1;
+}
+
+.empty-state button {
+  margin-top: 25px;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #3b82f6, #2dd4bf);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.status-message {
+  grid-column: 1 / -1;
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 18px;
+  text-align: center;
+  color: #64748b;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+}
+
+.low-stock {
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.warning-text {
+  color: #ef4444 !important;
+  font-weight: 800;
 }
 
 footer {
@@ -642,12 +776,14 @@ nav {
   animation: fadeInUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s both;
 }
 
-.hero button {
+.hero button,
+.button-link {
   animation: fadeInUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.6s both, pulseGlow 3s infinite 1.4s;
   background-size: 200% auto;
 }
 
-.hero button:hover {
+.hero button:hover,
+.button-link:hover {
   background-position: right center;
 }
 
@@ -744,21 +880,56 @@ nav {
 
 @media(max-width:900px) {
   nav {
+    padding: 16px 20px;
+    flex-wrap: wrap;
+  }
+
+  .nav-logo {
+    font-size: 28px;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  nav ul {
+    width: 100%;
+    display: none;
     flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+    gap: 14px;
+    align-items: stretch;
+    padding-top: 14px;
+  }
+
+  nav ul.open {
+    display: flex;
+  }
+
+  nav li {
+    width: 100%;
+  }
+
+  nav a:not(.nav-logo) {
+    display: block;
+    padding: 10px 0;
+  }
+
+  .container {
+    width: 92%;
+    margin-top: 32px;
   }
 
   .hero,
   .join-section,
   .about-hero {
-    padding: 50px 30px;
+    padding: 40px 24px;
+    border-radius: 24px;
   }
 
   .hero h2,
   .join-left h2,
   .about-hero h2 {
-    font-size: 42px;
+    font-size: 38px;
   }
 
   .hero p,
@@ -770,9 +941,54 @@ nav {
   .features,
   .join-section {
     flex-direction: column;
+    gap: 24px;
   }
 
   .join-section img {
     width: 100%;
+  }
+
+  .about-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(max-width:560px) {
+  .hero h2,
+  .join-left h2,
+  .about-hero h2,
+  .container h2 {
+    font-size: 32px;
+  }
+
+  .hero p,
+  .join-left p,
+  .about-hero p {
+    font-size: 16px;
+  }
+
+  .products-grid,
+  #inventory-container,
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+
+  .inventory-buttons button {
+    flex: 1;
+    padding: 12px 10px;
+  }
+
+  .empty-state {
+    padding: 36px 22px;
+    margin-top: 40px;
+  }
+
+  .pagination {
+    gap: 12px;
+  }
+
+  .pagination button {
+    width: auto;
+    min-width: 96px;
   }
 }

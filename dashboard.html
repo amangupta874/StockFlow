@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
 
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
 
@@ -21,11 +22,18 @@
   <nav>
     <a href="index.html" class="nav-logo">StockFlow</a>
 
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
     <ul id="nav-menu">
       <li><a href="index.html">Home</a></li>
       <li><a href="products.html">Products</a></li>
       <li><a href="inventory.html">Inventory</a></li>
       <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="about.html">About</a></li>
     </ul>
   </nav>
 
@@ -59,18 +67,7 @@
 
   </div>
 
-  <script src="./js/dashboard.js"></script>
-
-<script>
-  const toggle = document.getElementById('nav-toggle');
-  const menu = document.getElementById('nav-menu');
-  toggle.addEventListener('click', () => {
-    toggle.classList.toggle('open');
-    menu.classList.toggle('open');
-  });
-  document.querySelectorAll('#nav-menu a').forEach(a => {
-    if (a.href === location.href) a.classList.add('active');
-  });
-</script>
+  <script src="JS/app.js"></script>
+  <script src="JS/dashboard.js"></script>
 </body>
 </html>

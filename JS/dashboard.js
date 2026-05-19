@@ -12,7 +12,7 @@ const totalValue = inventory.reduce((acc, product) => {
 
 document.getElementById("total-value").textContent = `₹ ${totalValue.toFixed(2)}`;
 
-const lowStockProducts = inventory.filter((product) => product.rating.count < 100);
+const lowStockProducts = inventory.filter((product) => product.quantity <= 2);
 
 document.getElementById("low-stock").textContent = lowStockProducts.length;
 

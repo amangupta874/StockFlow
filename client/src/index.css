@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(236, 253, 245, 0.72)),
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.16), transparent 34rem),
+    radial-gradient(circle at bottom right, rgba(255, 107, 107, 0.13), transparent 32rem);
+  color: #0b1020;
+}
+
+.dark body {
+  background:
+    linear-gradient(135deg, rgba(7, 10, 19, 0.98), rgba(15, 23, 42, 0.95)),
+    radial-gradient(circle at top left, rgba(45, 212, 191, 0.15), transparent 32rem),
+    radial-gradient(circle at bottom right, rgba(245, 158, 11, 0.11), transparent 32rem);
+  color: #f8fafc;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+}
+
+.dark body::before {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+}
+
+@layer components {
+  .glass-panel {
+    @apply border border-white/60 bg-white/[0.72] shadow-panel backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.06];
+  }
+
+  .surface {
+    @apply border border-slate-200/80 bg-white/[0.88] shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.05];
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-ink px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-slate-900/15 transition hover:-translate-y-0.5 hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-white dark:text-ink dark:hover:bg-slate-100;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white/80 px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-100 dark:hover:bg-white/[0.1];
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-slate-200 bg-white/85 px-3.5 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brand-mint focus:ring-4 focus:ring-brand-mint/15 dark:border-white/10 dark:bg-white/[0.06] dark:text-white dark:placeholder:text-slate-500;
+  }
+
+  .label {
+    @apply text-xs font-bold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}

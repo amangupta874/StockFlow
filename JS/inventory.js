@@ -52,7 +52,7 @@ if(inventory.length === 0){
       (product.price * product.quantity).toFixed(2);
 
     card.innerHTML = `
-      <img src="${product.image}" />
+      <img src="${product.image}" alt="${product.title}" />
 
       <h3>${product.title}</h3>
 
@@ -166,4 +166,3 @@ function decreaseQuantity(id){
   displayInventory();
 
 }
-

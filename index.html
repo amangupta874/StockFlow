@@ -22,13 +22,20 @@
   </div>
 
     <nav>
-        <h1>StockFlow</h1>
+        <a href="index.html" class="nav-logo">StockFlow</a>
 
-        <ul>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <ul id="nav-menu">
             <li><a href="index.html">Home</a></li>
             <li><a href="products.html">Products</a></li>
             <li><a href="inventory.html">Inventory</a></li>
             <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="about.html">About</a></li>
         </ul>
     </nav>
 
@@ -87,12 +94,12 @@
 
             <div class="join-left">
                 <h2>Grow Your Store With StockFlow</h2>
-                <p>Register your local store,manage inventory, track sales, and connect with customersusing one smart
+                <p>Register your local store, manage inventory, track sales, and connect with customers using one smart
                     dashboard.</p>
-                <button>Register Store</button>
+                <a href="products.html" class="button-link">Register Store</a>
             </div>
 
-            <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4" alt="😟">
+            <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4" alt="Store owner checking inventory">
 
         </section>
 
@@ -104,6 +111,8 @@
         </footer>
 
     </div>
+
+    <script src="JS/app.js"></script>
 
 </body>
 
