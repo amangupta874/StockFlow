@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div id="bg-canvas">
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+  </div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">StockFlow</a>
+
+    <ul id="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="inventory.html">Inventory</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <h2>Dashboard Analytics</h2>
+
+    <div class="stats-container">
+
+      <div class="stat-card">
+        <h3>Total Products</h3>
+        <p id="total-products">0</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Total Inventory Value</h3>
+        <p id="total-value">₹0</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Low Stock Products</h3>
+        <p id="low-stock">0</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Total Categories</h3>
+        <p id="categories">0</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="./js/dashboard.js"></script>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+  document.querySelectorAll('#nav-menu a').forEach(a => {
+    if (a.href === location.href) a.classList.add('active');
+  });
+</script>
+</body>
+</html>

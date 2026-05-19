@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventory</title>
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">StockFlow</a>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul id="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="inventory.html">Inventory</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <h2>Inventory</h2>
+
+    <div id="inventory-container" class="products-grid"></div>
+
+  </div>
+
+  <script src="./js/inventory.js"></script>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+  document.querySelectorAll('#nav-menu a').forEach(a => {
+    if (a.href === location.href) a.classList.add('active');
+  });
+</script>
+</body>
+</html>

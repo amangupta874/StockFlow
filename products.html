@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Products</title>
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+  <!-- Animated Background -->
+  <div id="bg-canvas">
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+  </div>
+
+  <nav>
+    <h1>StockFlow</h1>
+
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <h2>Products :-</h2>
+
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Search products...">
+    </div>
+
+    <select id="category-filter">
+
+      <option value="all">
+        All Categories
+      </option>
+
+      <option value="electronics">
+        Electronics
+      </option>
+
+      <option value="jewelery">
+        Jewelery
+      </option>
+
+      <option value="men's clothing">
+        Men's Clothing
+      </option>
+
+      <option value="women's clothing">
+        Women's Clothing
+      </option>
+
+    </select>
+
+    <div id="products-container" class="products-grid">
+    </div>
+
+    <div class="pagination">
+
+      <button id="prev-btn">
+        Previous
+      </button>
+
+      <span id="page-number">1</span>
+
+      <button id="next-btn">
+        Next
+      </button>
+
+    </div>
+
+  </div>
+
+  <script src="./js/products.js"></script>
+
+</body>
+
+</html>
