@@ -7,12 +7,20 @@ import rateLimit from "express-rate-limit";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
+import path from "path";
+import { fileURLToPath } from "url";
+
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 const port = process.env.PORT || 5001;
 const allowedOrigins = [
   process.env.CLIENT_URL,
@@ -58,6 +66,7 @@ app.get("/api/health", (_req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/notifications", notificationRoutes);
 app.use(notFound);
 app.use(errorHandler);
 

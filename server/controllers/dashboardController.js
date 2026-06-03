@@ -37,7 +37,7 @@ const getDashboardStats = async (req, res, next) => {
           recentActivity: [
             { $sort: { updatedAt: -1 } },
             { $limit: 6 },
-            { $project: { title: 1, category: 1, quantity: 1, updatedAt: 1 } }
+            { $project: { title: 1, category: 1, quantity: 1, image: 1, updatedAt: 1 } }
           ]
         }
       }

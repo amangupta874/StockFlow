@@ -68,12 +68,39 @@ export const productService = {
   async remove(id) {
     const { data } = await api.delete(`/products/${id}`);
     return data;
+  },
+  async importSheet(file) {
+    const formData = new FormData();
+    formData.append("sheet", file);
+    const { data } = await api.post("/products/import", formData);
+    return data;
+  },
+  async bulkUpdate(updates) {
+    const results = await Promise.all(
+      updates.map((item) => productService.update(item._id, { quantity: item.quantity }))
+    );
+    return results;
   }
 };
 
 export const dashboardService = {
   async stats() {
     const { data } = await api.get("/dashboard/stats", { showToast: false });
+    return data;
+  }
+};
+
+export const notificationService = {
+  async list(sync = false) {
+    const { data } = await api.get("/notifications", { params: { sync }, showToast: false });
+    return data;
+  },
+  async markRead(id) {
+    const { data } = await api.patch(`/notifications/${id}/read`);
+    return data;
+  },
+  async markAllRead() {
+    const { data } = await api.patch("/notifications/read-all");
     return data;
   }
 };

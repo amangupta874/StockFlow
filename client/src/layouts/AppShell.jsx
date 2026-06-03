@@ -11,6 +11,7 @@ import {
 } from "react-icons/fi";
 import { useState } from "react";
 import Logo from "../components/Logo.jsx";
+import NotificationCenter from "../components/NotificationCenter.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useTheme } from "../context/ThemeContext.jsx";
 
@@ -55,6 +56,7 @@ const AppShell = () => {
             ))}
           </nav>
           <div className="hidden items-center gap-2 md:flex">
+            <NotificationCenter />
             <button className="btn-secondary !h-10 !w-10 !p-0" onClick={toggleTheme} aria-label="Toggle theme">
               {isDark ? <FiSun /> : <FiMoon />}
             </button>
@@ -88,6 +90,7 @@ const AppShell = () => {
                 </NavLink>
               ))}
               <div className="flex gap-2 pt-2">
+                <NotificationCenter />
                 <button className="btn-secondary flex-1" onClick={toggleTheme}>
                   {isDark ? <FiSun /> : <FiMoon />}
                   Theme

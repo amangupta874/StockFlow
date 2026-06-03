@@ -3,6 +3,7 @@ import {
   createProduct,
   deleteProduct,
   getProducts,
+  importProducts,
   updateProduct
 } from "../controllers/productController.js";
 import { protect } from "../middleware/authMiddleware.js";
@@ -14,6 +15,8 @@ router
   .route("/")
   .get(protect, getProducts)
   .post(protect, upload.single("imageFile"), createProduct);
+
+router.post("/import", protect, upload.single("sheet"), importProducts);
 
 router
   .route("/:id")

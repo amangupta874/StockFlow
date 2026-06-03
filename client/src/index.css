@@ -56,7 +56,7 @@ body::before {
   }
 
   .surface {
-    @apply border border-slate-200/80 bg-white/[0.88] shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.05];
+    @apply border border-slate-200/80 bg-white/[0.88] shadow-sm backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-panel dark:border-white/10 dark:bg-white/[0.05] dark:hover:border-white/20;
   }
 
   .btn-primary {
@@ -78,6 +78,29 @@ body::before {
   .badge {
     @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold;
   }
+
+  .premium-band {
+    @apply relative overflow-hidden rounded-lg border border-slate-200/80 bg-ink text-white shadow-panel dark:border-white/10;
+  }
+
+  .premium-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(120deg, rgba(45, 212, 191, 0.18), transparent 36%),
+      linear-gradient(290deg, rgba(245, 158, 11, 0.16), transparent 38%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent);
+  }
+
+  .progress-track {
+    @apply h-2 overflow-hidden rounded-full bg-slate-200/80 dark:bg-white/10;
+  }
+
+  .progress-fill {
+    @apply h-full rounded-full bg-brand-mint transition-all duration-500;
+  }
 }
 
 .shimmer {
@@ -93,3 +116,4 @@ body::before {
     transform: translateX(100%);
   }
 }
+
