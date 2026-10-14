@@ -7,3 +7,6 @@ server/.env
 client/.env
 .DS_Store
 npm-debug.log*
+.vercel
+*.env.local
+*.env.development.local

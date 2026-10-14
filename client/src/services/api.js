@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { getStoredToken } from "../utils/sessionStorage.js";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5001/api"
+  baseURL: import.meta.env.VITE_API_URL || "/api"
 });
 
 api.interceptors.request.use((config) => {
@@ -19,7 +19,14 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const message = error.response?.data?.message || "Something went wrong";
+    let message = error.response?.data?.message;
+    if (!message) {
+      if (error.code === "ERR_NETWORK" || error.message === "Network Error") {
+        message = "Cannot connect to server. Please check if the backend server is running.";
+      } else {
+        message = error.message || "Something went wrong";
+      }
+    }
     if (error.config?.showToast !== false) toast.error(message);
     return Promise.reject(error);
   }
