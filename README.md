@@ -31,27 +31,13 @@ npm run install:all
 
 ### 2. Configure Environment Variables
 
-Copy the example environment file:
+Copy the example environment file and configure your local settings:
 
 ```bash
 cp server/.env.example server/.env
 ```
 
-Ensure `server/.env` contains:
-
-```env
-NODE_ENV=development
-PORT=5001
-MONGO_URI=mongodb://127.0.0.1:27017/stockflow
-JWT_SECRET=your-secret-key-change-in-production
-JWT_EXPIRES_IN=7d
-CLIENT_URL=http://localhost:5173
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
-```
-
-> **Note:** Cloudinary is optional for local testing. If not configured, product image URLs still work seamlessly.
+> **Note:** Cloudinary is optional for local development. If not configured, product image URLs still work seamlessly.
 
 ### 3. Run Locally
 
